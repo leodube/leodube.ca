@@ -6,9 +6,10 @@
   "repository": "",
   "license": "MIT",
   "scripts": {
+    "build": "keystone build && keystone prisma migrate deploy",
     "dev": "keystone dev",
-    "start": "keystone start",
-    "build": "keystone build && keystone prisma migrate deploy"
+    "postinstall": "keystone postinstall",
+    "start": "keystone start"
   },
   "engines": {
     "node": "^14.15 || ^16.13"
