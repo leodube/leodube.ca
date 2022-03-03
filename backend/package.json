@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "keystone.ts",
+  "repository": "",
+  "license": "MIT",
+  "scripts": {
+    "dev": "keystone dev",
+    "start": "keystone start",
+    "build": "keystone build && keystone prisma migrate deploy"
+  },
+  "dependencies": {
+    "@keystone-6/auth": "^1.0.2",
+    "@keystone-6/core": "^1.0.1",
+    "@keystone-6/fields-document": "^1.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.2"
+  }
+}
