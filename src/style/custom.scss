@@ -1,0 +1,21 @@
+// button themes
+a.btn-light {
+  background-color: white;
+  border: white;
+}
+
+a.btn-light:focus {
+  background-color: white;
+}
+
+// navbar themes
+.nav-item {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.nav-item:hover {
+  border-bottom: 2px solid #42a5f5;
+  padding-bottom: 0px;
+}
+
+@import "~bootstrap/scss/bootstrap.scss";
