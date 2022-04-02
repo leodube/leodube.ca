@@ -1,30 +1,9 @@
-import { parse, isValid, formatISO, format } from "date-fns";
+import { formatISO, format } from "date-fns";
 
 const FULL_TIME_PATTERN = "HH:mm:ss.SSS";
 
 function formatFullTime(date: Date) {
   return format(date, FULL_TIME_PATTERN);
-}
-
-export function formatTime(time: string) {
-  const date = parse(time, FULL_TIME_PATTERN, new Date());
-  if (date.getMilliseconds() !== 0) {
-    return format(date, FULL_TIME_PATTERN);
-  }
-  if (date.getSeconds() !== 0) {
-    return format(date, "HH:mm:ss");
-  }
-  return format(date, "HH:mm");
-}
-
-export function parseTime(time: string) {
-  for (const pattern of ["H:m:s.SSS", "H:m:s", "H:m", "H"]) {
-    const parsed = parse(time, pattern, new Date());
-    if (isValid(parsed)) {
-      return format(parsed, FULL_TIME_PATTERN);
-    }
-  }
-  return undefined;
 }
 
 export function constructTimestamp({

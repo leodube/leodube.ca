@@ -199,6 +199,13 @@ type Job {
   startDate: DateTime
   endDate: DateTime
   isCurrent: Boolean
+  skills(
+    where: SkillWhereInput! = {}
+    orderBy: [SkillOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Skill!]
+  skillsCount(where: SkillWhereInput! = {}): Int
   description: String
 }
 
@@ -221,6 +228,7 @@ input JobWhereInput {
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   isCurrent: BooleanFilter
+  skills: SkillManyRelationFilter
   description: StringFilter
 }
 
@@ -238,6 +246,12 @@ input DateTimeNullableFilter {
   gt: DateTime
   gte: DateTime
   not: DateTimeNullableFilter
+}
+
+input SkillManyRelationFilter {
+  every: SkillWhereInput
+  some: SkillWhereInput
+  none: SkillWhereInput
 }
 
 input JobOrderByInput {
@@ -260,7 +274,15 @@ input JobUpdateInput {
   startDate: DateTime
   endDate: DateTime
   isCurrent: Boolean
+  skills: SkillRelateToManyForUpdateInput
   description: String
+}
+
+input SkillRelateToManyForUpdateInput {
+  disconnect: [SkillWhereUniqueInput!]
+  set: [SkillWhereUniqueInput!]
+  create: [SkillCreateInput!]
+  connect: [SkillWhereUniqueInput!]
 }
 
 input JobUpdateArgs {
@@ -276,7 +298,13 @@ input JobCreateInput {
   startDate: DateTime
   endDate: DateTime
   isCurrent: Boolean
+  skills: SkillRelateToManyForCreateInput
   description: String
+}
+
+input SkillRelateToManyForCreateInput {
+  create: [SkillCreateInput!]
+  connect: [SkillWhereUniqueInput!]
 }
 
 type Project {
@@ -327,6 +355,61 @@ input ProjectCreateInput {
   subtitle: String
   description: String
   type: String
+}
+
+type Skill {
+  id: ID!
+  name: String
+  type: String
+  job: Job
+}
+
+input SkillWhereUniqueInput {
+  id: ID
+}
+
+input SkillWhereInput {
+  AND: [SkillWhereInput!]
+  OR: [SkillWhereInput!]
+  NOT: [SkillWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  type: StringNullableFilter
+  job: JobWhereInput
+}
+
+input SkillOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  type: OrderDirection
+}
+
+input SkillUpdateInput {
+  name: String
+  type: String
+  job: JobRelateToOneForUpdateInput
+}
+
+input JobRelateToOneForUpdateInput {
+  create: JobCreateInput
+  connect: JobWhereUniqueInput
+  disconnect: Boolean
+}
+
+input SkillUpdateArgs {
+  where: SkillWhereUniqueInput!
+  data: SkillUpdateInput!
+}
+
+input SkillCreateInput {
+  name: String
+  type: String
+  job: JobRelateToOneForCreateInput
+}
+
+input JobRelateToOneForCreateInput {
+  create: JobCreateInput
+  connect: JobWhereUniqueInput
 }
 
 type SEO_Tag {
@@ -410,6 +493,12 @@ type Mutation {
   updateProjects(data: [ProjectUpdateArgs!]!): [Project]
   deleteProject(where: ProjectWhereUniqueInput!): Project
   deleteProjects(where: [ProjectWhereUniqueInput!]!): [Project]
+  createSkill(data: SkillCreateInput!): Skill
+  createSkills(data: [SkillCreateInput!]!): [Skill]
+  updateSkill(where: SkillWhereUniqueInput!, data: SkillUpdateInput!): Skill
+  updateSkills(data: [SkillUpdateArgs!]!): [Skill]
+  deleteSkill(where: SkillWhereUniqueInput!): Skill
+  deleteSkills(where: [SkillWhereUniqueInput!]!): [Skill]
   createSEO_Tag(data: SEO_TagCreateInput!): SEO_Tag
   createSEOTags(data: [SEO_TagCreateInput!]!): [SEO_Tag]
   updateSEO_Tag(
@@ -481,6 +570,14 @@ type Query {
   ): [Project!]
   project(where: ProjectWhereUniqueInput!): Project
   projectsCount(where: ProjectWhereInput! = {}): Int
+  skills(
+    where: SkillWhereInput! = {}
+    orderBy: [SkillOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Skill!]
+  skill(where: SkillWhereUniqueInput!): Skill
+  skillsCount(where: SkillWhereInput! = {}): Int
   sEOTags(
     where: SEO_TagWhereInput! = {}
     orderBy: [SEO_TagOrderByInput!]! = []

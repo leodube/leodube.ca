@@ -8,6 +8,7 @@ import {
 } from "@keystone-6/core/types";
 import { graphql } from "@keystone-6/core";
 import { DatepickerFieldMeta } from "./views";
+import path from "path";
 
 function padTo2Digits(num: number): string {
   return num.toString().padStart(2, "0");
@@ -139,7 +140,7 @@ export const datepicker =
           ? graphql.nonNull(graphql.DateTime)
           : graphql.DateTime,
       }),
-      views: require.resolve("./views"),
+      views: path.join(__dirname, "views"),
       getAdminMeta(): DatepickerFieldMeta {
         return {
           defaultValue: defaultValue ?? null,

@@ -33,11 +33,12 @@ model Job {
   id          String    @id @default(cuid())
   company     String    @default("")
   position    String    @default("")
-  type        String?   @default("draft")
+  type        String?   @default("fullTime")
   contract    Boolean   @default(false)
   startDate   DateTime?
   endDate     DateTime?
   isCurrent   Boolean   @default(false)
+  skills      Skill[]   @relation("Skill_job")
   description String    @default("")
 }
 
@@ -47,6 +48,16 @@ model Project {
   subtitle    String  @default("")
   description String  @default("")
   type        String? @default("personal")
+}
+
+model Skill {
+  id    String  @id @default(cuid())
+  name  String  @default("")
+  type  String? @default("programmingLanguage")
+  job   Job?    @relation("Skill_job", fields: [jobId], references: [id])
+  jobId String? @map("job")
+
+  @@index([jobId])
 }
 
 model SEO_Tag {

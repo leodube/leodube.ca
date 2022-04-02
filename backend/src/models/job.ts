@@ -1,5 +1,11 @@
 import { list } from "@keystone-6/core";
-import { text, select, checkbox, timestamp } from "@keystone-6/core/fields";
+import {
+  text,
+  select,
+  checkbox,
+  timestamp,
+  relationship,
+} from "@keystone-6/core/fields";
 
 export const job = list({
   fields: {
@@ -11,13 +17,30 @@ export const job = list({
         { label: "Part-Time", value: "partTime" },
         { label: "Internship", value: "internship" },
       ],
-      defaultValue: "draft",
+      defaultValue: "fullTime",
       ui: { displayMode: "segmented-control" },
     }),
     contract: checkbox({ defaultValue: false }),
     startDate: timestamp(),
     endDate: timestamp(),
     isCurrent: checkbox({ defaultValue: false }),
+    skills: relationship({
+      ref: "Skill.job",
+      many: true,
+      ui: {
+        hideCreate: true,
+        displayMode: "select",
+        createView: {
+          fieldMode: ({ session, context }) => "hidden",
+        },
+        itemView: {
+          fieldMode: ({ session, context, item }) => "read",
+        },
+        listView: {
+          fieldMode: ({ session, context }) => "read",
+        },
+      },
+    }),
     description: text(),
   },
   ui: {
