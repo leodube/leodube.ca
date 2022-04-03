@@ -13,6 +13,7 @@ export const page = list({
       defaultValue: "draft",
       ui: { displayMode: "segmented-control" },
     }),
+    image: relationship({ ref: "Image", many: true }),
     content: document({
       formatting: true,
       links: true,
