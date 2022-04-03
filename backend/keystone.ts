@@ -2,13 +2,13 @@ import { config } from "@keystone-6/core";
 import { statelessSessions } from "@keystone-6/core/session";
 import { lists } from "./src/schema";
 import { withAuth } from "./src/auth";
-import type { GraphQLConfig } from "@keystone-6/core/types";
 import {
   PORT,
   DATABASE_URL,
   SESSION_MAX_AGE,
   SESSION_SECRET,
 } from "./src/config";
+import "dotenv/config";
 
 // Configure session
 const session = statelessSessions({

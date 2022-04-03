@@ -17,3 +17,52 @@ model User {
   email    String @unique @default("")
   password String
 }
+
+model Page {
+  id      String   @id @default(cuid())
+  page    String   @default("")
+  status  String?  @default("draft")
+  content Json     @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  seo     SEO_Tag? @relation("Page_seo", fields: [seoId], references: [id])
+  seoId   String?  @map("seo")
+
+  @@index([seoId])
+}
+
+model Job {
+  id          String    @id @default(cuid())
+  company     String    @default("")
+  position    String    @default("")
+  type        String?   @default("fullTime")
+  contract    Boolean   @default(false)
+  startDate   DateTime?
+  endDate     DateTime?
+  isCurrent   Boolean   @default(false)
+  skills      Skill[]   @relation("Job_skills")
+  description Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Project {
+  id          String  @id @default(cuid())
+  title       String  @default("")
+  subtitle    String  @default("")
+  image       Json?
+  type        String? @default("personal")
+  description Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+}
+
+model Skill {
+  id              String @id @default(cuid())
+  name            String @default("")
+  type            String @default("programmingLanguage")
+  level           String @default("weekly")
+  from_Job_skills Job[]  @relation("Job_skills")
+}
+
+model SEO_Tag {
+  id             String @id @default(cuid())
+  page           String @default("")
+  metaTitle      String @default("")
+  metDescription String @default("")
+  from_Page_seo  Page[] @relation("Page_seo")
+}
