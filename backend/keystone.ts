@@ -8,6 +8,7 @@ import {
   SESSION_MAX_AGE,
   SESSION_SECRET,
 } from "./src/config";
+import "dotenv/config";
 
 // Configure session
 const session = statelessSessions({

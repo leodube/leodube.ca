@@ -38,26 +38,25 @@ model Job {
   startDate   DateTime?
   endDate     DateTime?
   isCurrent   Boolean   @default(false)
-  skills      Skill[]   @relation("Skill_job")
-  description String    @default("")
+  skills      Skill[]   @relation("Job_skills")
+  description Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
 model Project {
   id          String  @id @default(cuid())
   title       String  @default("")
   subtitle    String  @default("")
-  description String  @default("")
+  image       Json?
   type        String? @default("personal")
+  description Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
 model Skill {
-  id    String  @id @default(cuid())
-  name  String  @default("")
-  type  String? @default("programmingLanguage")
-  job   Job?    @relation("Skill_job", fields: [jobId], references: [id])
-  jobId String? @map("job")
-
-  @@index([jobId])
+  id              String @id @default(cuid())
+  name            String @default("")
+  type            String @default("programmingLanguage")
+  level           String @default("weekly")
+  from_Job_skills Job[]  @relation("Job_skills")
 }
 
 model SEO_Tag {

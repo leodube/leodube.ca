@@ -6,6 +6,7 @@ import {
   timestamp,
   relationship,
 } from "@keystone-6/core/fields";
+import { document } from "@keystone-6/fields-document";
 
 export const job = list({
   fields: {
@@ -25,23 +26,25 @@ export const job = list({
     endDate: timestamp(),
     isCurrent: checkbox({ defaultValue: false }),
     skills: relationship({
-      ref: "Skill.job",
+      ref: "Skill",
       many: true,
       ui: {
-        hideCreate: true,
         displayMode: "select",
-        createView: {
-          fieldMode: ({ session, context }) => "hidden",
-        },
-        itemView: {
-          fieldMode: ({ session, context, item }) => "read",
-        },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
+        labelField: "label",
       },
     }),
-    description: text(),
+    description: document({
+      formatting: true,
+      links: true,
+      layouts: [
+        [1, 1],
+        [1, 1, 1],
+        [2, 1],
+        [1, 2],
+        [1, 2, 1],
+      ],
+      dividers: true,
+    }),
   },
   ui: {
     labelField: "company",

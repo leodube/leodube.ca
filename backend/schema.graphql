@@ -206,11 +206,15 @@ type Job {
     skip: Int! = 0
   ): [Skill!]
   skillsCount(where: SkillWhereInput! = {}): Int
-  description: String
+  description: Job_description_Document
 }
 
 scalar DateTime
   @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+
+type Job_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
 
 input JobWhereUniqueInput {
   id: ID
@@ -229,7 +233,6 @@ input JobWhereInput {
   endDate: DateTimeNullableFilter
   isCurrent: BooleanFilter
   skills: SkillManyRelationFilter
-  description: StringFilter
 }
 
 input BooleanFilter {
@@ -263,7 +266,6 @@ input JobOrderByInput {
   startDate: OrderDirection
   endDate: OrderDirection
   isCurrent: OrderDirection
-  description: OrderDirection
 }
 
 input JobUpdateInput {
@@ -275,7 +277,7 @@ input JobUpdateInput {
   endDate: DateTime
   isCurrent: Boolean
   skills: SkillRelateToManyForUpdateInput
-  description: String
+  description: JSON
 }
 
 input SkillRelateToManyForUpdateInput {
@@ -299,7 +301,7 @@ input JobCreateInput {
   endDate: DateTime
   isCurrent: Boolean
   skills: SkillRelateToManyForCreateInput
-  description: String
+  description: JSON
 }
 
 input SkillRelateToManyForCreateInput {
@@ -311,8 +313,62 @@ type Project {
   id: ID!
   title: String
   subtitle: String
-  description: String
+  image: CloudinaryImage_File
   type: String
+  description: Project_description_Document
+}
+
+type CloudinaryImage_File {
+  id: ID
+  filename: String
+  originalFilename: String
+  mimetype: String
+  encoding: String
+  publicUrl: String
+  publicUrlTransformed(transformation: CloudinaryImageFormat): String
+}
+
+"""
+Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
+All options are strings as they ultimately end up in a URL.
+"""
+input CloudinaryImageFormat {
+  """
+   Rewrites the filename to be this pretty string. Do not include `/` or `.`
+  """
+  prettyName: String
+  width: String
+  height: String
+  crop: String
+  aspect_ratio: String
+  gravity: String
+  zoom: String
+  x: String
+  y: String
+  format: String
+  fetch_format: String
+  quality: String
+  radius: String
+  angle: String
+  effect: String
+  opacity: String
+  border: String
+  background: String
+  overlay: String
+  underlay: String
+  default_image: String
+  delay: String
+  color: String
+  color_space: String
+  dpr: String
+  page: String
+  density: String
+  flags: String
+  transformation: String
+}
+
+type Project_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 input ProjectWhereUniqueInput {
@@ -326,7 +382,6 @@ input ProjectWhereInput {
   id: IDFilter
   title: StringFilter
   subtitle: StringFilter
-  description: StringFilter
   type: StringNullableFilter
 }
 
@@ -334,16 +389,21 @@ input ProjectOrderByInput {
   id: OrderDirection
   title: OrderDirection
   subtitle: OrderDirection
-  description: OrderDirection
   type: OrderDirection
 }
 
 input ProjectUpdateInput {
   title: String
   subtitle: String
-  description: String
+  image: Upload
   type: String
+  description: JSON
 }
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
 
 input ProjectUpdateArgs {
   where: ProjectWhereUniqueInput!
@@ -353,15 +413,17 @@ input ProjectUpdateArgs {
 input ProjectCreateInput {
   title: String
   subtitle: String
-  description: String
+  image: Upload
   type: String
+  description: JSON
 }
 
 type Skill {
   id: ID!
   name: String
   type: String
-  job: Job
+  level: String
+  label: String
 }
 
 input SkillWhereUniqueInput {
@@ -374,26 +436,21 @@ input SkillWhereInput {
   NOT: [SkillWhereInput!]
   id: IDFilter
   name: StringFilter
-  type: StringNullableFilter
-  job: JobWhereInput
+  type: StringFilter
+  level: StringFilter
 }
 
 input SkillOrderByInput {
   id: OrderDirection
   name: OrderDirection
   type: OrderDirection
+  level: OrderDirection
 }
 
 input SkillUpdateInput {
   name: String
   type: String
-  job: JobRelateToOneForUpdateInput
-}
-
-input JobRelateToOneForUpdateInput {
-  create: JobCreateInput
-  connect: JobWhereUniqueInput
-  disconnect: Boolean
+  level: String
 }
 
 input SkillUpdateArgs {
@@ -404,12 +461,7 @@ input SkillUpdateArgs {
 input SkillCreateInput {
   name: String
   type: String
-  job: JobRelateToOneForCreateInput
-}
-
-input JobRelateToOneForCreateInput {
-  create: JobCreateInput
-  connect: JobWhereUniqueInput
+  level: String
 }
 
 type SEO_Tag {

@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "Job" ALTER COLUMN "startDate" DROP NOT NULL,
-ALTER COLUMN "startDate" DROP DEFAULT;
