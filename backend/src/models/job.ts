@@ -33,6 +33,7 @@ export const job = list({
         labelField: "label",
       },
     }),
+    image: relationship({ ref: "Image", many: true }),
     description: document({
       formatting: true,
       links: true,
