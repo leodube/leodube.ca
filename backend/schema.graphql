@@ -103,6 +103,13 @@ type Page {
   id: ID!
   page: String
   status: String
+  image(
+    where: ImageWhereInput! = {}
+    orderBy: [ImageOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Image!]
+  imageCount(where: ImageWhereInput! = {}): Int
   content: Page_content_Document
   seo: SEO_Tag
 }
@@ -122,6 +129,7 @@ input PageWhereInput {
   id: IDFilter
   page: StringFilter
   status: StringNullableFilter
+  image: ImageManyRelationFilter
   seo: SEO_TagWhereInput
 }
 
@@ -154,6 +162,12 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
 }
 
+input ImageManyRelationFilter {
+  every: ImageWhereInput
+  some: ImageWhereInput
+  none: ImageWhereInput
+}
+
 input PageOrderByInput {
   id: OrderDirection
   page: OrderDirection
@@ -163,8 +177,16 @@ input PageOrderByInput {
 input PageUpdateInput {
   page: String
   status: String
+  image: ImageRelateToManyForUpdateInput
   content: JSON
   seo: SEO_TagRelateToOneForUpdateInput
+}
+
+input ImageRelateToManyForUpdateInput {
+  disconnect: [ImageWhereUniqueInput!]
+  set: [ImageWhereUniqueInput!]
+  create: [ImageCreateInput!]
+  connect: [ImageWhereUniqueInput!]
 }
 
 input SEO_TagRelateToOneForUpdateInput {
@@ -181,8 +203,14 @@ input PageUpdateArgs {
 input PageCreateInput {
   page: String
   status: String
+  image: ImageRelateToManyForCreateInput
   content: JSON
   seo: SEO_TagRelateToOneForCreateInput
+}
+
+input ImageRelateToManyForCreateInput {
+  create: [ImageCreateInput!]
+  connect: [ImageWhereUniqueInput!]
 }
 
 input SEO_TagRelateToOneForCreateInput {
@@ -206,6 +234,13 @@ type Job {
     skip: Int! = 0
   ): [Skill!]
   skillsCount(where: SkillWhereInput! = {}): Int
+  image(
+    where: ImageWhereInput! = {}
+    orderBy: [ImageOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Image!]
+  imageCount(where: ImageWhereInput! = {}): Int
   description: Job_description_Document
 }
 
@@ -233,6 +268,7 @@ input JobWhereInput {
   endDate: DateTimeNullableFilter
   isCurrent: BooleanFilter
   skills: SkillManyRelationFilter
+  image: ImageManyRelationFilter
 }
 
 input BooleanFilter {
@@ -277,6 +313,7 @@ input JobUpdateInput {
   endDate: DateTime
   isCurrent: Boolean
   skills: SkillRelateToManyForUpdateInput
+  image: ImageRelateToManyForUpdateInput
   description: JSON
 }
 
@@ -301,6 +338,7 @@ input JobCreateInput {
   endDate: DateTime
   isCurrent: Boolean
   skills: SkillRelateToManyForCreateInput
+  image: ImageRelateToManyForCreateInput
   description: JSON
 }
 
@@ -313,9 +351,114 @@ type Project {
   id: ID!
   title: String
   subtitle: String
-  image: CloudinaryImage_File
   type: String
+  image(
+    where: ImageWhereInput! = {}
+    orderBy: [ImageOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Image!]
+  imageCount(where: ImageWhereInput! = {}): Int
   description: Project_description_Document
+}
+
+type Project_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input ProjectWhereUniqueInput {
+  id: ID
+}
+
+input ProjectWhereInput {
+  AND: [ProjectWhereInput!]
+  OR: [ProjectWhereInput!]
+  NOT: [ProjectWhereInput!]
+  id: IDFilter
+  title: StringFilter
+  subtitle: StringFilter
+  type: StringNullableFilter
+  image: ImageManyRelationFilter
+}
+
+input ProjectOrderByInput {
+  id: OrderDirection
+  title: OrderDirection
+  subtitle: OrderDirection
+  type: OrderDirection
+}
+
+input ProjectUpdateInput {
+  title: String
+  subtitle: String
+  type: String
+  image: ImageRelateToManyForUpdateInput
+  description: JSON
+}
+
+input ProjectUpdateArgs {
+  where: ProjectWhereUniqueInput!
+  data: ProjectUpdateInput!
+}
+
+input ProjectCreateInput {
+  title: String
+  subtitle: String
+  type: String
+  image: ImageRelateToManyForCreateInput
+  description: JSON
+}
+
+type Skill {
+  id: ID!
+  name: String
+  type: String
+  level: String
+  label: String
+}
+
+input SkillWhereUniqueInput {
+  id: ID
+}
+
+input SkillWhereInput {
+  AND: [SkillWhereInput!]
+  OR: [SkillWhereInput!]
+  NOT: [SkillWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  type: StringFilter
+  level: StringFilter
+}
+
+input SkillOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  type: OrderDirection
+  level: OrderDirection
+}
+
+input SkillUpdateInput {
+  name: String
+  type: String
+  level: String
+}
+
+input SkillUpdateArgs {
+  where: SkillWhereUniqueInput!
+  data: SkillUpdateInput!
+}
+
+input SkillCreateInput {
+  name: String
+  type: String
+  level: String
+}
+
+type Image {
+  id: ID!
+  label: String
+  image: CloudinaryImage_File
 }
 
 type CloudinaryImage_File {
@@ -367,37 +510,26 @@ input CloudinaryImageFormat {
   transformation: String
 }
 
-type Project_description_Document {
-  document(hydrateRelationships: Boolean! = false): JSON!
-}
-
-input ProjectWhereUniqueInput {
+input ImageWhereUniqueInput {
   id: ID
 }
 
-input ProjectWhereInput {
-  AND: [ProjectWhereInput!]
-  OR: [ProjectWhereInput!]
-  NOT: [ProjectWhereInput!]
+input ImageWhereInput {
+  AND: [ImageWhereInput!]
+  OR: [ImageWhereInput!]
+  NOT: [ImageWhereInput!]
   id: IDFilter
-  title: StringFilter
-  subtitle: StringFilter
-  type: StringNullableFilter
+  label: StringFilter
 }
 
-input ProjectOrderByInput {
+input ImageOrderByInput {
   id: OrderDirection
-  title: OrderDirection
-  subtitle: OrderDirection
-  type: OrderDirection
+  label: OrderDirection
 }
 
-input ProjectUpdateInput {
-  title: String
-  subtitle: String
+input ImageUpdateInput {
+  label: String
   image: Upload
-  type: String
-  description: JSON
 }
 
 """
@@ -405,63 +537,14 @@ The `Upload` scalar type represents a file upload.
 """
 scalar Upload
 
-input ProjectUpdateArgs {
-  where: ProjectWhereUniqueInput!
-  data: ProjectUpdateInput!
+input ImageUpdateArgs {
+  where: ImageWhereUniqueInput!
+  data: ImageUpdateInput!
 }
 
-input ProjectCreateInput {
-  title: String
-  subtitle: String
-  image: Upload
-  type: String
-  description: JSON
-}
-
-type Skill {
-  id: ID!
-  name: String
-  type: String
-  level: String
+input ImageCreateInput {
   label: String
-}
-
-input SkillWhereUniqueInput {
-  id: ID
-}
-
-input SkillWhereInput {
-  AND: [SkillWhereInput!]
-  OR: [SkillWhereInput!]
-  NOT: [SkillWhereInput!]
-  id: IDFilter
-  name: StringFilter
-  type: StringFilter
-  level: StringFilter
-}
-
-input SkillOrderByInput {
-  id: OrderDirection
-  name: OrderDirection
-  type: OrderDirection
-  level: OrderDirection
-}
-
-input SkillUpdateInput {
-  name: String
-  type: String
-  level: String
-}
-
-input SkillUpdateArgs {
-  where: SkillWhereUniqueInput!
-  data: SkillUpdateInput!
-}
-
-input SkillCreateInput {
-  name: String
-  type: String
-  level: String
+  image: Upload
 }
 
 type SEO_Tag {
@@ -551,6 +634,12 @@ type Mutation {
   updateSkills(data: [SkillUpdateArgs!]!): [Skill]
   deleteSkill(where: SkillWhereUniqueInput!): Skill
   deleteSkills(where: [SkillWhereUniqueInput!]!): [Skill]
+  createImage(data: ImageCreateInput!): Image
+  createImages(data: [ImageCreateInput!]!): [Image]
+  updateImage(where: ImageWhereUniqueInput!, data: ImageUpdateInput!): Image
+  updateImages(data: [ImageUpdateArgs!]!): [Image]
+  deleteImage(where: ImageWhereUniqueInput!): Image
+  deleteImages(where: [ImageWhereUniqueInput!]!): [Image]
   createSEO_Tag(data: SEO_TagCreateInput!): SEO_Tag
   createSEOTags(data: [SEO_TagCreateInput!]!): [SEO_Tag]
   updateSEO_Tag(
@@ -630,6 +719,14 @@ type Query {
   ): [Skill!]
   skill(where: SkillWhereUniqueInput!): Skill
   skillsCount(where: SkillWhereInput! = {}): Int
+  images(
+    where: ImageWhereInput! = {}
+    orderBy: [ImageOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Image!]
+  image(where: ImageWhereUniqueInput!): Image
+  imagesCount(where: ImageWhereInput! = {}): Int
   sEOTags(
     where: SEO_TagWhereInput! = {}
     orderBy: [SEO_TagOrderByInput!]! = []

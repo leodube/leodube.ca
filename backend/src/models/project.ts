@@ -1,21 +1,12 @@
 import { list } from "@keystone-6/core";
-import { text, select } from "@keystone-6/core/fields";
+import { text, select, relationship } from "@keystone-6/core/fields";
 import { document } from "@keystone-6/fields-document";
-import { cloudinaryImage } from "@keystone-6/cloudinary";
 import "dotenv/config";
 
 export const project = list({
   fields: {
     title: text({ validation: { isRequired: true } }),
     subtitle: text(),
-    image: cloudinaryImage({
-      cloudinary: {
-        cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-        apiKey: process.env.CLOUDINARY_API_KEY,
-        apiSecret: process.env.CLOUDINARY_API_SECRET,
-        folder: process.env.CLOUDINARY_API_FOLDER,
-      },
-    }),
     type: select({
       options: [
         { label: "Personal", value: "personal" },
@@ -24,6 +15,7 @@ export const project = list({
       defaultValue: "personal",
       ui: { displayMode: "segmented-control" },
     }),
+    image: relationship({ ref: "Image", many: true }),
     description: document({
       formatting: true,
       links: true,
