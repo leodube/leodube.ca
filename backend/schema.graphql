@@ -551,7 +551,7 @@ type SEO_Tag {
   id: ID!
   page: String
   metaTitle: String
-  metDescription: String
+  metaDescription: String
 }
 
 input SEO_TagWhereUniqueInput {
@@ -565,20 +565,20 @@ input SEO_TagWhereInput {
   id: IDFilter
   page: StringFilter
   metaTitle: StringFilter
-  metDescription: StringFilter
+  metaDescription: StringFilter
 }
 
 input SEO_TagOrderByInput {
   id: OrderDirection
   page: OrderDirection
   metaTitle: OrderDirection
-  metDescription: OrderDirection
+  metaDescription: OrderDirection
 }
 
 input SEO_TagUpdateInput {
   page: String
   metaTitle: String
-  metDescription: String
+  metaDescription: String
 }
 
 input SEO_TagUpdateArgs {
@@ -589,7 +589,7 @@ input SEO_TagUpdateArgs {
 input SEO_TagCreateInput {
   page: String
   metaTitle: String
-  metDescription: String
+  metaDescription: String
 }
 
 """
