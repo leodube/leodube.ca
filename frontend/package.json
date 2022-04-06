@@ -1,0 +1,38 @@
+{
+  "name": "leodube.ca",
+  "version": "1.0.0",
+  "private": true,
+  "description": "leodube.ca",
+  "author": "Leo Dube",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@chakra-ui/gatsby-plugin": "^2.0.4",
+    "@chakra-ui/react": "^1.8.7",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "framer-motion": "^6.2.8",
+    "gatsby": "^4.11.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "babel-jest": "^27.5.1",
+    "babel-preset-gatsby": "^2.11.1",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^18.0.0",
+    "typescript": "^4.6.3"
+  }
+}
