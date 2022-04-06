@@ -6,6 +6,8 @@ Personal website and portfolio of Leo Dube.
 - Gatsby
 - Keystone
 - Chakra-UI
+- Framer Motion
+- Jest
 
 ### Hosted on:
 - Netlify
