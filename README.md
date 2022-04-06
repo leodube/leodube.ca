@@ -8,6 +8,8 @@ Personal website and portfolio of Leo Dube.
 - Chakra-UI
 - Framer Motion
 - Jest
+- React-Testing-Library
+- Storybook
 
 ### Hosted on:
 - Netlify
