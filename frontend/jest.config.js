@@ -1,9 +1,9 @@
 module.exports = {
   transform: {
-    "^.+\\.[jt]sx?$": "<rootDir>/test-setup/jest-preprocess.js",
+    "^.+\\.[jt]sx?$": "<rootDir>/.test-setup/jest-preprocess.js",
   },
   moduleNameMapper: {
-    ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": `<rootDir>/test-setup/__mocks__/file-mock.js`,
+    ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": `<rootDir>/.test-setup/__mocks__/file-mock.js`,
     "^gatsby-page-utils/(.*)$": `gatsby-page-utils/dist/$1`,
     "^gatsby-core-utils/(.*)$": `gatsby-core-utils/dist/$1`,
     "^gatsby-plugin-utils/(.*)$": [
@@ -17,7 +17,7 @@ module.exports = {
     __PATH_PREFIX__: ``,
   },
   testURL: `http://localhost`,
-  setupFiles: [`<rootDir>/test-setup/loadershim.js`],
+  setupFiles: [`<rootDir>/.test-setup/loadershim.js`],
   testEnvironment: `jsdom`,
-  setupFilesAfterEnv: ["<rootDir>/test-setup/setup-test-env.js"],
+  setupFilesAfterEnv: ["<rootDir>/.test-setup/setup-test-env.js"],
 };
