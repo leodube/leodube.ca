@@ -71,9 +71,9 @@ model Image {
 }
 
 model SEO_Tag {
-  id             String @id @default(cuid())
-  page           String @default("")
-  metaTitle      String @default("")
-  metDescription String @default("")
-  from_Page_seo  Page[] @relation("Page_seo")
+  id              String @id @default(cuid())
+  page            String @default("")
+  metaTitle       String @default("")
+  metaDescription String @default("")
+  from_Page_seo   Page[] @relation("Page_seo")
 }

@@ -5,7 +5,7 @@ export const seoTag = list({
   fields: {
     page: text({ validation: { isRequired: true } }),
     metaTitle: text(),
-    metDescription: text(),
+    metaDescription: text(),
   },
   ui: {
     labelField: "page",

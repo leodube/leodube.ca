@@ -1,8 +1,11 @@
 import type { GatsbyConfig } from "gatsby";
+import "dotenv/config";
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `leodube.ca`,
+    title: "Leo Dube",
+    description: "Personal portfolio",
+    author: "@leodube",
     siteUrl: `https://www.leodube.ca`,
   },
   proxy: {
