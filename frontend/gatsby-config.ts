@@ -5,6 +5,10 @@ const config: GatsbyConfig = {
     title: `leodube.ca`,
     siteUrl: `https://www.leodube.ca`,
   },
+  proxy: {
+    prefix: "/admin",
+    url: process.env.ADMIN_API_URL || "http://localhost:1337",
+  },
   plugins: [
     {
       resolve: "@chakra-ui/gatsby-plugin",

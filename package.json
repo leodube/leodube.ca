@@ -1,0 +1,30 @@
+{
+  "name": "leodube.ca",
+  "version": "1.0.0",
+  "description": "Personal website and portfolio of Leo Dube.",
+  "main": "index.js",
+  "scripts": {
+    "build": "concurrently -c \"bgBlue.bold,bgMagenta.bold\" \"yarn:build:*\" --group --timings",
+    "build:backend": "cd backend && yarn build",
+    "build:frontend": "cd frontend && yarn build",
+    "dev": "concurrently -c \"bgBlue.bold,bgMagenta.bold\" \"yarn:dev:*\" --kill-others",
+    "dev:backend": "cd backend && yarn dev",
+    "dev:frontend": "cd frontend && yarn develop",
+    "serve": "concurrently -c \"bgBlue.bold,bgMagenta.bold\" \"yarn:serve:*\" --group",
+    "serve:backend": "cd backend && yarn start",
+    "serve:frontend": "cd frontend && yarn serve",
+    "start": "yarn dev",
+    "start:db": "postgres -D /usr/local/var/postgres"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leodube/leodube.ca.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leodube/leodube.ca/issues"
+  },
+  "homepage": "https://github.com/leodube/leodube.ca#readme"
+}
