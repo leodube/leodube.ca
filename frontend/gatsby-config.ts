@@ -10,7 +10,7 @@ const config: GatsbyConfig = {
   },
   proxy: {
     prefix: "/admin",
-    url: process.env.ADMIN_API_URL,
+    url: process.env.ADMIN_API_URL || "http://localhost:1337",
   },
   plugins: [
     {
