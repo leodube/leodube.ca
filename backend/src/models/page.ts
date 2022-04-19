@@ -40,7 +40,7 @@ export const page = list({
         },
       },
     }),
-    seo: relationship({ ref: "SEO_Tag" }),
+    seo: relationship({ ref: "Seo" }),
   },
   ui: {
     labelField: "page",

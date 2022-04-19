@@ -1,7 +1,7 @@
 import { list } from "@keystone-6/core";
 import { text } from "@keystone-6/core/fields";
 
-export const seoTag = list({
+export const seo = list({
   fields: {
     page: text({ validation: { isRequired: true } }),
     metaTitle: text(),

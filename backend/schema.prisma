@@ -19,13 +19,13 @@ model User {
 }
 
 model Page {
-  id      String   @id @default(cuid())
-  page    String   @default("")
-  status  String?  @default("draft")
-  image   Image[]  @relation("Page_image")
-  content Json     @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  seo     SEO_Tag? @relation("Page_seo", fields: [seoId], references: [id])
-  seoId   String?  @map("seo")
+  id      String  @id @default(cuid())
+  page    String  @default("")
+  status  String? @default("draft")
+  image   Image[] @relation("Page_image")
+  content Json    @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  seo     Seo?    @relation("Page_seo", fields: [seoId], references: [id])
+  seoId   String? @map("seo")
 
   @@index([seoId])
 }
@@ -70,7 +70,7 @@ model Image {
   from_Project_image Project[] @relation("Project_image")
 }
 
-model SEO_Tag {
+model Seo {
   id             String @id @default(cuid())
   page           String @default("")
   metaTitle      String @default("")
