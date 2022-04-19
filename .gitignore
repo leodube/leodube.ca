@@ -5,5 +5,10 @@ node_modules
 .keystone
 .next
 
+# Gatsby build files
+.cache
+public
+
 # Other
 .env
+.DS_Store
