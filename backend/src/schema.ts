@@ -1,4 +1,4 @@
-import { user, page, job, project, skill, image, seoTag } from "./models";
+import { user, page, job, project, skill, image, seo } from "./models";
 
 export const lists = {
   User: user,
@@ -7,5 +7,5 @@ export const lists = {
   Project: project,
   Skill: skill,
   Image: image,
-  SEO_Tag: seoTag,
+  Seo: seo,
 };

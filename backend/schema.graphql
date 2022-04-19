@@ -111,7 +111,7 @@ type Page {
   ): [Image!]
   imageCount(where: ImageWhereInput! = {}): Int
   content: Page_content_Document
-  seo: SEO_Tag
+  seo: Seo
 }
 
 type Page_content_Document {
@@ -130,7 +130,7 @@ input PageWhereInput {
   page: StringFilter
   status: StringNullableFilter
   image: ImageManyRelationFilter
-  seo: SEO_TagWhereInput
+  seo: SeoWhereInput
 }
 
 input StringNullableFilter {
@@ -179,7 +179,7 @@ input PageUpdateInput {
   status: String
   image: ImageRelateToManyForUpdateInput
   content: JSON
-  seo: SEO_TagRelateToOneForUpdateInput
+  seo: SeoRelateToOneForUpdateInput
 }
 
 input ImageRelateToManyForUpdateInput {
@@ -189,9 +189,9 @@ input ImageRelateToManyForUpdateInput {
   connect: [ImageWhereUniqueInput!]
 }
 
-input SEO_TagRelateToOneForUpdateInput {
-  create: SEO_TagCreateInput
-  connect: SEO_TagWhereUniqueInput
+input SeoRelateToOneForUpdateInput {
+  create: SeoCreateInput
+  connect: SeoWhereUniqueInput
   disconnect: Boolean
 }
 
@@ -205,7 +205,7 @@ input PageCreateInput {
   status: String
   image: ImageRelateToManyForCreateInput
   content: JSON
-  seo: SEO_TagRelateToOneForCreateInput
+  seo: SeoRelateToOneForCreateInput
 }
 
 input ImageRelateToManyForCreateInput {
@@ -213,9 +213,9 @@ input ImageRelateToManyForCreateInput {
   connect: [ImageWhereUniqueInput!]
 }
 
-input SEO_TagRelateToOneForCreateInput {
-  create: SEO_TagCreateInput
-  connect: SEO_TagWhereUniqueInput
+input SeoRelateToOneForCreateInput {
+  create: SeoCreateInput
+  connect: SeoWhereUniqueInput
 }
 
 type Job {
@@ -547,46 +547,46 @@ input ImageCreateInput {
   image: Upload
 }
 
-type SEO_Tag {
+type Seo {
   id: ID!
   page: String
   metaTitle: String
   metDescription: String
 }
 
-input SEO_TagWhereUniqueInput {
+input SeoWhereUniqueInput {
   id: ID
 }
 
-input SEO_TagWhereInput {
-  AND: [SEO_TagWhereInput!]
-  OR: [SEO_TagWhereInput!]
-  NOT: [SEO_TagWhereInput!]
+input SeoWhereInput {
+  AND: [SeoWhereInput!]
+  OR: [SeoWhereInput!]
+  NOT: [SeoWhereInput!]
   id: IDFilter
   page: StringFilter
   metaTitle: StringFilter
   metDescription: StringFilter
 }
 
-input SEO_TagOrderByInput {
+input SeoOrderByInput {
   id: OrderDirection
   page: OrderDirection
   metaTitle: OrderDirection
   metDescription: OrderDirection
 }
 
-input SEO_TagUpdateInput {
+input SeoUpdateInput {
   page: String
   metaTitle: String
   metDescription: String
 }
 
-input SEO_TagUpdateArgs {
-  where: SEO_TagWhereUniqueInput!
-  data: SEO_TagUpdateInput!
+input SeoUpdateArgs {
+  where: SeoWhereUniqueInput!
+  data: SeoUpdateInput!
 }
 
-input SEO_TagCreateInput {
+input SeoCreateInput {
   page: String
   metaTitle: String
   metDescription: String
@@ -640,15 +640,12 @@ type Mutation {
   updateImages(data: [ImageUpdateArgs!]!): [Image]
   deleteImage(where: ImageWhereUniqueInput!): Image
   deleteImages(where: [ImageWhereUniqueInput!]!): [Image]
-  createSEO_Tag(data: SEO_TagCreateInput!): SEO_Tag
-  createSEOTags(data: [SEO_TagCreateInput!]!): [SEO_Tag]
-  updateSEO_Tag(
-    where: SEO_TagWhereUniqueInput!
-    data: SEO_TagUpdateInput!
-  ): SEO_Tag
-  updateSEOTags(data: [SEO_TagUpdateArgs!]!): [SEO_Tag]
-  deleteSEO_Tag(where: SEO_TagWhereUniqueInput!): SEO_Tag
-  deleteSEOTags(where: [SEO_TagWhereUniqueInput!]!): [SEO_Tag]
+  createSeo(data: SeoCreateInput!): Seo
+  createSeos(data: [SeoCreateInput!]!): [Seo]
+  updateSeo(where: SeoWhereUniqueInput!, data: SeoUpdateInput!): Seo
+  updateSeos(data: [SeoUpdateArgs!]!): [Seo]
+  deleteSeo(where: SeoWhereUniqueInput!): Seo
+  deleteSeos(where: [SeoWhereUniqueInput!]!): [Seo]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -727,14 +724,14 @@ type Query {
   ): [Image!]
   image(where: ImageWhereUniqueInput!): Image
   imagesCount(where: ImageWhereInput! = {}): Int
-  sEOTags(
-    where: SEO_TagWhereInput! = {}
-    orderBy: [SEO_TagOrderByInput!]! = []
+  seos(
+    where: SeoWhereInput! = {}
+    orderBy: [SeoOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [SEO_Tag!]
-  sEO_Tag(where: SEO_TagWhereUniqueInput!): SEO_Tag
-  sEOTagsCount(where: SEO_TagWhereInput! = {}): Int
+  ): [Seo!]
+  seo(where: SeoWhereUniqueInput!): Seo
+  seosCount(where: SeoWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
