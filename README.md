@@ -14,4 +14,5 @@ Personal website and portfolio of Leo Dube.
 ### Hosted on:
 - Netlify
 - Railway
+- Postgres
 - Cloudinary
