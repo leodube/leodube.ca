@@ -38,7 +38,7 @@ const Home = () => {
           </div>
           <div className="col-lg-4 mb-1">
             <a
-              href="https://www.linkedin.com/in/leo-dube/"
+              href="https://www.linkedin.com/in/leodube/"
               target="_blank"
               role="button"
               className="btn btn-light btn-lg btn-block"
